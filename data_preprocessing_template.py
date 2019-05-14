@@ -43,7 +43,7 @@ y = onehotencoder.fit_transform(y).toarray(y)
 #
 #
 # ----------Splitting the Data into Training set and Testing set--------------------
-from sklearn.cross_decomposition import train_test_split
+from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.25, train_size = 0.75,
                                                     random_state = 0)
 #
