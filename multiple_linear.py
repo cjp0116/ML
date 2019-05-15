@@ -69,3 +69,32 @@ X = X[:, 1:]
 # Splitting Test Data and Training Data
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, train_size= 0.8, test_size= 0.2, random_state= 0)
+
+# Fitting the Mulitple Linear Regression into the Training set
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+# Predicting the Test Set Results
+y_pred = regressor.predict(X_test)
+print(y_pred)
+
+
+## Building Optimal Model using Backwards Elimination ##
+import statsmodels.formula.api as sm
+X = np.append(arr = np.ones((50,1)).astype(int), values= X, axis= 1)
+
+# Initialize the independant variable columns
+X_opt = X[:, [0,1,2,3,4,5]]
+
+# Fit the full model with possible predictors
+regressor_OLS = sm.OLS(endog= y, exog= X_opt).fit()
+print(regressor_OLS.summary())
+
+# Remove the ones with the P value > 0.05
+X_opt = X[:, [0,3,5]]
+regressor_OLS = sm.OLS(endog= y, exog= X_opt).fit()
+print(regressor_OLS.summary())
+X_opt = X[:, [0,3]]
+regressor_OLS = sm.OLS(endog = y, exog= X_opt).fit()
+print(regressor_OLS.summary())
